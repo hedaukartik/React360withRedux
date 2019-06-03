@@ -14,7 +14,7 @@ var config = {
   },
 
   getAssetExts() {
-    return ['obj', 'mtl'];
+    return ['obj', 'mtl', 'gltf'];
   },
 
   getPlatforms() {

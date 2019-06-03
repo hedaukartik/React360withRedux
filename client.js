@@ -24,11 +24,11 @@ function init(bundle, parent, options = {}) {
   summmaryPanel.setAngle(3.0, 0);
   const endPanel = new Surface(500, 500, Surface.SurfaceShape.Flat);
   endPanel.setAngle(4.0, 0);
-  r360.renderToSurface(r360.createRoot("homePanel"), homePanel);
+  // r360.renderToSurface(r360.createRoot("homePanel"), homePanel);
   r360.renderToSurface(r360.createRoot("plansPanel"), plansPanel);
-  r360.renderToSurface(r360.createRoot("devicePanel"), devicePanel);
-  r360.renderToSurface(r360.createRoot("summmaryPanel"), summmaryPanel);
-  r360.renderToSurface(r360.createRoot("endPanel"), endPanel);
+  // r360.renderToSurface(r360.createRoot("devicePanel"), devicePanel);
+  // r360.renderToSurface(r360.createRoot("summmaryPanel"), summmaryPanel);
+  // r360.renderToSurface(r360.createRoot("endPanel"), endPanel);
 
   // Load the initial environment8
   r360.compositor.setBackground(r360.getAssetURL("360_world.jpg"));
