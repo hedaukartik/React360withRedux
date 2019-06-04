@@ -1,7 +1,9 @@
 
-export const FETCH_PLANS = 'fetch_plans';
-export const FETCH_PLANS_FULFILLED = 'fetch_plans_fulfilled';
-export const FETCH_PLANS_REJECTED = 'fetch_plans_rejected';
+export const FETCH_PLANS = 'FETCH_PLANS';
+export const FETCH_PLANS_FULFILLED = 'FETCH_PLANS_FULFILLED';
+export const FETCH_PLANS_REJECTED = 'FETCH_PLANS_REJECTED';
+export const SET_SELECTED_PLAN = 'SET_SELECTED_PLAN';
+export const SET_GAZED_PLAN = 'SET_GAZED_PLAN';
 
 
 //export const SET_CURRENT_POST = 'set_current_post';

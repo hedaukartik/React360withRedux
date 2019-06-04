@@ -2,7 +2,13 @@ import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-360';
-import { plansFetch } from '../actions';
+import { plansFetch, setSelectedPlan, setGazedPlan } from '../actions';
+
+import { bindActionCreators } from 'redux';
+
+import GazeButton from "react-360-gaze-button";
+
+//import console = require('console');
 //import PostButton from './PostButton';
 
 class PlansView extends React.Component {
@@ -13,37 +19,36 @@ class PlansView extends React.Component {
   
     setGazed = index1 => {
       let updateData = [];
-      this.state.plans.map((item, ind) => {
+      this.props.plans.plans.map((item, ind) => {
         if (index1 == ind) {
           updateData.push({
             name: item.name,
-            decrptipn: item.decrptipn,
+            description: item.description,
             gazed: true,
             selected: true
           });
-          finalSelectedItem.plan = item.name;
-          finalSelectedItem.decrptipn = item.name;
-          finalSelectedItem.orderToken = finalSelectedItem.orderToken + 1;
+          this.props.setSelectedPlan(item);
         } else {
           updateData.push({
             name: item.name,
             gazed: false,
             selected: false,
-            decrptipn: item.decrptipn
+            description: item.description
           });
         }
+        
       });
-  
+      this.props.setGazedPlan(updateData);
     //   this.setState({
     //     plans: [...updateData]
     //   });
     };
     render() {
-      const { gazed } = this.state;
+     // const { gazed } = this.props.plans;
       return (
         <View style={styles.panelPlans}>
-          <Text style={styles2.greetingHeader}>Please Select A Plan: </Text>
-          {this.state.plans.map((item, index) => {
+          <Text>Please Select A Plan: </Text>
+          { this.props && this.props.plans && this.props.plans.plans && this.props.plans.plans.map((item, index) => {
             return (
               <GazeButton
                 duration={1000}
@@ -57,7 +62,7 @@ class PlansView extends React.Component {
                   >
                     <Text style={styles.greeting}>
                       {item.gazed
-                        ? item.name + "    SELECTED"
+                        ? item.name + " SELECTED"
                         : isGazed
                         ? item.name +
                           "    Selecting...in " +
@@ -65,7 +70,7 @@ class PlansView extends React.Component {
                           "sec"
                         : item.name}
                     </Text>
-                    <Text style={styles.greetingBox1}>{item.decrptipn}</Text>
+                    <Text style={styles.greetingBox1}>{item.description}</Text>
                   </View>
                 )}
               />
@@ -113,10 +118,16 @@ class PlansView extends React.Component {
   });
 
   const mapStateToProps = (state) => {
-
-    const  { plans } = state.plans,
     
-    return { plans };
+    return { plans: state.plans }
+  };
+
+  const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+      plansFetch: plansFetch,
+      setSelectedPlan: setSelectedPlan,
+      setGazedPlan : setGazedPlan
+    }, dispatch);
   };
   
-  export default connect(mapStateToProps, { plansFetch })(PlansView);  
+  export default connect(mapStateToProps, mapDispatchToProps)(PlansView);  
