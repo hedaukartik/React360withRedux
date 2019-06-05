@@ -1,8 +1,7 @@
-import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-360';
-import { plansFetch, setSelectedPlan, setGazedPlan } from '../actions';
+import { devicesFetch, setSelectedDevice, setGazedDevice } from '../actions';
 
 import { bindActionCreators } from 'redux';
 
@@ -11,15 +10,15 @@ import GazeButton from "react-360-gaze-button";
 //import console = require('console');
 //import PostButton from './PostButton';
 
-class PlansView extends React.Component {
+class DevicesView extends React.Component {
     
     componentWillMount() {
-        this.props.plansFetch();
+        this.props.devicesFetch();
     }
   
     setGazed = index1 => {
       let updateData = [];
-      this.props.plans.plans.map((item, ind) => {
+      this.props.devices.devices.map((item, ind) => {
         if (index1 == ind) {
           updateData.push({
             name: item.name,
@@ -27,7 +26,7 @@ class PlansView extends React.Component {
             gazed: true,
             selected: true
           });
-          this.props.setSelectedPlan(item);
+          this.props.setSelectedDevice(item);
         } else {
           updateData.push({
             name: item.name,
@@ -38,7 +37,7 @@ class PlansView extends React.Component {
         }
         
       });
-      this.props.setGazedPlan(updateData);
+      this.props.setGazedDevice(updateData);
     //   this.setState({
     //     plans: [...updateData]
     //   });
@@ -48,7 +47,7 @@ class PlansView extends React.Component {
       return (
         <View style={styles.panelPlans}>
           <Text>Please Select A Plan: </Text>
-          { this.props && this.props.plans && this.props.plans.plans && this.props.plans.plans.map((item, index) => {
+          { this.props && this.props.devices && this.props.devices.devices && this.props.devices.devices.map((item, index) => {
             return (
               <GazeButton
                 duration={1000}
@@ -94,7 +93,7 @@ class PlansView extends React.Component {
     greetingBo_selected: {
       backgroundColor: "#639dda",
       borderColor: "#000",
-     // color: "#d6424c",
+      //color: "white",
       borderWidth: 2,
       padding: 18,
       width: 500,
@@ -119,15 +118,15 @@ class PlansView extends React.Component {
 
   const mapStateToProps = (state) => {
     
-    return { plans: state.plans }
+    return { devices: state.devices }
   };
 
   const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-      plansFetch: plansFetch,
-      setSelectedPlan: setSelectedPlan,
-      setGazedPlan : setGazedPlan
+      devicesFetch: devicesFetch,
+      setSelectedDevice: setSelectedDevice,
+      setGazedDevice : setGazedDevice
     }, dispatch);
   };
   
-  export default connect(mapStateToProps, mapDispatchToProps)(PlansView);  
+  export default connect(mapStateToProps, mapDispatchToProps)(DevicesView);  

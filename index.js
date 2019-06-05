@@ -5,7 +5,8 @@ import {
   NativeModules
 } from "react-360";
 
-import plansPanel from './src/scenes/plansPanel'
+import plansPanel from './src/scenes/plansPanel';
+import devicesPanel from './src/scenes/devicesPanel';
 
 const { AudioModule } = NativeModules;
 AudioModule.playEnvironmental({
@@ -14,7 +15,7 @@ AudioModule.playEnvironmental({
 });
 
 AppRegistry.registerComponent("plansPanel", () => plansPanel);
-// AppRegistry.registerComponent("devicePanel", () => devicePanel);
+AppRegistry.registerComponent("devicesPanel", () => devicesPanel);
 // AppRegistry.registerComponent("summmaryPanel", () => summmaryPanel);
 // AppRegistry.registerComponent("endPanel", () => endPanel);
 // AppRegistry.registerComponent("homePanel", () => homePanel);
