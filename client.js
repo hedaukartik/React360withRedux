@@ -20,6 +20,8 @@ function init(bundle, parent, options = {}) {
   plansPanel.setAngle(1.0, 0);
   const devicesPanel = new Surface(500, 500, Surface.SurfaceShape.Flat);
   devicesPanel.setAngle(2.0, 0);
+  const deviceDetailPanel = new Surface(500, 500, Surface.SurfaceShape.Flat);
+  deviceDetailPanel.setAngle(3.0, 0);
   const summmaryPanel = new Surface(500, 500, Surface.SurfaceShape.Flat);
   summmaryPanel.setAngle(3.0, 0);
   const endPanel = new Surface(500, 500, Surface.SurfaceShape.Flat);
@@ -27,6 +29,7 @@ function init(bundle, parent, options = {}) {
   // r360.renderToSurface(r360.createRoot("homePanel"), homePanel);
   r360.renderToSurface(r360.createRoot("plansPanel"), plansPanel);
   r360.renderToSurface(r360.createRoot("devicesPanel"), devicesPanel);
+  r360.renderToSurface(r360.createRoot("deviceDetailPanel"), deviceDetailPanel);
   // r360.renderToSurface(r360.createRoot("summmaryPanel"), summmaryPanel);
   // r360.renderToSurface(r360.createRoot("endPanel"), endPanel);
 

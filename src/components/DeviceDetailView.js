@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View } from 'react-360';
-import { devicesFetch, setSelectedDevice, setGazedDevice } from '../actions';
+import { selectedDeviceFetch , setSelectedDeviceColor, setGazedDeviceColor } from '../actions';
 
 import { bindActionCreators } from 'redux';
 
@@ -10,70 +10,63 @@ import GazeButton from "react-360-gaze-button";
 //import console = require('console');
 //import PostButton from './PostButton';
 
-class DevicesView extends React.Component {
+class DeviceDetailView extends React.Component {
     
     componentWillMount() {
-        this.props.devicesFetch();
+        this.props.selectedDeviceFetch();
     }
   
-    setGazed = index1 => {
+    setGazedColor = index1 => {
       let updateData = [];
-      this.props.devices.devices.map((item, ind) => {
-        if (index1 == ind) {
-          updateData.push({
-            name: item.name,
-            description: item.description,
-            gazed: true,
-            selected: true,
-            colors: item.colors,
-            sizes: item.sizes
-          });
-          this.props.setSelectedDevice(item);
-        } else {
-          updateData.push({
-            name: item.name,
-            description: item.description,
-            gazed: false,
-            selected: false,
-            colors: item.colors,
-            sizes: item.sizes
-          });
+      let updatedColor = [];
+      this.props.colorNsize.colors.map((item, ind) => {
+        if(ind === index1){
+            updatedColor.push({
+                color: item.color,
+                gazed: true
+            });
+            item.gazed= true;
+            this.props.setSelectedDeviceColor(item);
+        }
+        else{
+            updatedColor.push({
+                color: item.color,
+                gazed: false
+            });
         }
         
       });
-      this.props.setGazedDevice(updateData);
-    //   this.setState({
-    //     plans: [...updateData]
-    //   });
+
+      this.props.setGazedDeviceColor(updatedColor);
+
     };
     render() {
      // const { gazed } = this.props.plans;
       return (
         <View style={styles.panelPlans}>
-          <Text>Please Select A Plan: </Text>
-          { this.props && this.props.devices && this.props.devices.devices && this.props.devices.devices.map((item, index) => {
+          <Text>Please Select A Device Color and Size</Text>
+          { this.props && this.props.colorNsize && this.props.colorNsize.colors && this.props.colorNsize.colors.map((item, index) => {
             return (
               <GazeButton
                 duration={1000}
-                onClick={this.setGazed.bind(this, index)}
+                onClick={this.setGazedColor.bind(this, index)}
                 render={(remainingTime, isGazed) => (
                   <View
                     style={
                       item.gazed ? styles.greetingBo_selected : styles.greetingBox
                     }
-                    key={item.name}
+                    key={item.color}
                   >
                     <Text style={styles.greeting}>
                       {item.gazed
-                        ? item.name + " SELECTED"
+                        ? item.color + " SELECTED"
                         : isGazed
-                        ? item.name +
+                        ? item.color +
                           "    Selecting...in " +
                           remainingTime +
                           "sec"
-                        : item.name}
+                        : item.color}
                     </Text>
-                    <Text style={styles.greetingBox1}>{item.description}</Text>
                   </View>
                 )}
               />
@@ -121,16 +114,19 @@ class DevicesView extends React.Component {
   });
 
   const mapStateToProps = (state) => {
-    
-    return { devices: state.devices }
+    const colorNsize = {
+        colors: state.selectedDevice && state.selectedDevice.selected_device && state.selectedDevice.selected_device.colors,
+        sizes: state.selectedDevice && state.selectedDevice.selected_device && state.selectedDevice.selected_device.sizes,
+    }
+    return { colorNsize }
   };
 
   const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-      devicesFetch: devicesFetch,
-      setSelectedDevice: setSelectedDevice,
-      setGazedDevice : setGazedDevice
+      selectedDeviceFetch: selectedDeviceFetch,
+      setSelectedDeviceColor: setSelectedDeviceColor,
+      setGazedDeviceColor: setGazedDeviceColor
     }, dispatch);
   };
   
-  export default connect(mapStateToProps, mapDispatchToProps)(DevicesView);  
+  export default connect(mapStateToProps, mapDispatchToProps)(DeviceDetailView);  

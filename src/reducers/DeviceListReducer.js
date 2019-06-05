@@ -1,11 +1,10 @@
-import { FETCH_DEVICES, FETCH_DEVICES_REJECTED, FETCH_DEVICES_FULFILLED, SET_SELECTED_DEVICE, SET_GAZED_DEVICE } from '../actions/Types';
+import { FETCH_DEVICES, FETCH_DEVICES_REJECTED, FETCH_DEVICES_FULFILLED, SET_SELECTED_DEVICE, SET_GAZED_DEVICE, SET_SELECTED_DEVICE_COLOR } from '../actions/Types';
 
 const INITIAL_STATE = {
     devices:[],
     fetching: false,
     fetched:false,
-    error: null,
-    selected_device : null
+    error: null
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -37,17 +36,7 @@ export default (state = INITIAL_STATE, action) => {
                 
             }
         }
-
-        case SET_SELECTED_DEVICE: {
-            return {
-                ...state,
-                fetching: false,
-                fetched:true,
-                selected_device : action.payload
-
-                
-            }
-        }
+        
         default:
         return state;
     }

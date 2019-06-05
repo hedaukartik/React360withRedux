@@ -7,6 +7,8 @@ import {
 
 import plansPanel from './src/scenes/plansPanel';
 import devicesPanel from './src/scenes/devicesPanel';
+import deviceDetailPanel from './src/scenes/deviceDetailPanel';
+
 
 const { AudioModule } = NativeModules;
 AudioModule.playEnvironmental({
@@ -16,6 +18,8 @@ AudioModule.playEnvironmental({
 
 AppRegistry.registerComponent("plansPanel", () => plansPanel);
 AppRegistry.registerComponent("devicesPanel", () => devicesPanel);
+AppRegistry.registerComponent("deviceDetailPanel", () => deviceDetailPanel);
+
 // AppRegistry.registerComponent("summmaryPanel", () => summmaryPanel);
 // AppRegistry.registerComponent("endPanel", () => endPanel);
 // AppRegistry.registerComponent("homePanel", () => homePanel);
